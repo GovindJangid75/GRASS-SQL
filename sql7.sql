@@ -1,57 +1,129 @@
--- date 16 feb 2026
--- LECT NO 7
--- WHERE    -->    check each data one by one
--- SELECT   -->   Specify which data you want to get from multiple table
--- FROM     -->    specify from which table you want to get data
--- JOIN     -->    combine data from multiple table
--- GROUP BY -->    specify which data you want to get from multiple table
--- ORDER BY -->    sorts the results
--- HAVING BY-->    filters groups after the group by operation
--- LIMIT    -->    restrict the numbers of rows returned
+-- date: 16 FEB 2026
+-- LECTURE NO 7
+
+-- SQL CLAUSE EXECUTION FLOW (logical understanding)
+
+-- FROM      -> decide from which table data comes
+-- WHERE     -> filter rows one by one (before grouping)
+-- GROUP BY  -> group rows based on column
+-- HAVING    -> filter groups (after grouping)
+-- SELECT    -> choose columns to display
+-- ORDER BY  -> sort results
+-- LIMIT     -> restrict number of rows
+
+
+USE COLLEGES;
 
 
 
-use COLLEGES;
+-- Display table data
 
-SELECT * from IT_STD;   
+SELECT * FROM IT_STD;
 
--- SELECT "name", "MAIL"
--- FROM IT_STD 
--- WHERE CGPA > 5 
--- GROUP BY "name";
 
 
 -- ORDER BY
-SELECT * FROM it_std ORDER BY CGPA ASC;
-SELECT * FROM it_std ORDER BY CGPA DESC;
+-- Used to sort records
+
+-- ASC -> ascending order (default)
+-- DESC -> descending order
+
+SELECT * 
+FROM IT_STD
+ORDER BY CGPA ASC;
+
+SELECT *
+FROM IT_STD
+ORDER BY CGPA DESC;
 
 
--- LIMIT 
-SELECT * FROM it_std ORDER BY NAME ASC LIMIT 3;
-SELECT * FROM it_std ORDER BY CGPA DESC LIMIT 3;
+
+-- LIMIT
+-- Restricts number of rows returned
+
+-- First 3 students sorted by name
+
+SELECT *
+FROM IT_STD
+ORDER BY NAME ASC
+LIMIT 3;
+
+
+-- Top 3 students with highest CGPA
+
+SELECT *
+FROM IT_STD
+ORDER BY CGPA DESC
+LIMIT 3;
+
 
 
 -- GROUP BY
-SELECT NAME ,COUNT(*) FROM it_std GROUP BY NAME;
+-- Groups rows having same values
 
+-- Count how many students exist with same name
 
--- top 3 students with highest cgpa
-select name, cgpa from it_std order by cgpa desc limit 3;
-
-
--- second highest cgpa 
-select name, cgpa from it_std order by cgpa desc limit 1,1;
-select DISTINCT name, cgpa from it_std order by cgpa desc limit 1 OFFSET 1;
-
-
--- having : filters groups after the group by operation
-select cgpa, COUNT(*) from it_std GROUP BY CGPA HAVING CGPA>4.7;
+SELECT NAME, COUNT(*) AS TOTAL
+FROM IT_STD
+GROUP BY NAME;
 
 
 
-select SALARY, COUNT(*) from it_std GROUP BY SALARY HAVING SALARY=10000;
+-- TOP N QUERY (important interview concept)
+
+-- Top 3 students based on CGPA
+
+SELECT NAME, CGPA
+FROM IT_STD
+ORDER BY CGPA DESC
+LIMIT 3;
 
 
--- rlike
-select * from it_std where name rlike '[^aeiou]';
+-- SECOND HIGHEST CGPA
 
+-- LIMIT offset method
+-- Syntax: LIMIT offset, count
+
+SELECT NAME, CGPA
+FROM IT_STD
+ORDER BY CGPA DESC
+LIMIT 1,1;     -- skip 1 row, show next 1 row
+
+
+-- Alternative method using OFFSET keyword
+
+SELECT DISTINCT NAME, CGPA
+FROM IT_STD
+ORDER BY CGPA DESC
+LIMIT 1 OFFSET 1;
+
+
+
+-- HAVING CLAUSE
+-- HAVING filters groups AFTER GROUP BY
+-- WHERE filters rows BEFORE GROUP BY
+
+SELECT CGPA, COUNT(*) AS TOTAL
+FROM IT_STD
+GROUP BY CGPA
+HAVING CGPA > 4.7;
+
+
+
+-- Example: Salary grouping
+
+SELECT SALARY, COUNT(*) AS TOTAL
+FROM IT_STD
+GROUP BY SALARY
+HAVING SALARY = 10000;
+
+
+-- REGEX SEARCH USING RLIKE
+-- RLIKE allows regular expression pattern matching
+
+-- [^aeiou] means:
+-- any character that is NOT a vowel
+
+SELECT *
+FROM IT_STD
+WHERE NAME RLIKE '[^aeiou]';

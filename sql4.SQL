@@ -1,126 +1,179 @@
 -- DML ---> DATA MANIPULATION LANGUAGE
+-- Used to manipulate data inside tables.
+-- Commands: INSERT, UPDATE, DELETE
 
--- DATA TYPE --- 3 TYPE
--- NUMERIC
--- STRING
--- DATE
-
--- NUMRIC DATA TYPE
-    -- 1 .BIT  --> 1 TO 64 
-    -- 2. TINYINT
-    -- 3. SMALLINT
-    -- 4. MEDIUMINT
-    -- 5. INT
-    -- 6. BIGINT
-    -- 7. FLOAT
-    -- 8. DOUBLE
-    -- 9. DECIMAL
-    -- 10. BOOLEAN
-    -- 11. DEC()
-    -- 12. INTEGER
-    --13. BIGIN
-    
-
---  STRING DATA TYPE  14 
-    -- 1. CHAR 0 TO 255
-    -- 2. VARCHAR  0 TO 65535
-    -- 3. BINARY
-    -- 4. VARBINARY
-    -- 5. TINYTEXT
-    -- 6. TEXT
-    -- 7. MEDIUMTEXT
-    -- 8. LONGTEXT
-    -- 9. TINYBLOB
-    -- 10. BLOB
-    -- 11. MEDIUMBLOB
-    -- 12. LONGBLOB     4,794,967,295
-    -- 13. ENUM('VALUE1','VALUE2','VALUE3') UPTO 65535 VALUES
-    -- 14. SET ('VALUE1','VALUE2','VALUE3') 0 TO 64
-    
+-- DQL ---> DATA QUERY LANGUAGE
+-- Used to fetch/query data.
+-- Command: SELECT
 
 
 
+-- DATA TYPES
 
--- 3 DATE AND TIME
+-- NUMERIC DATA TYPES
 
--- 1. DATE   ---> 1000-01-01 TO 9999-12-31
--- 2. DATETIME (FSP) ---> 1000-01-01 00:00:00 TO 9999-12-31 23:59:59   YYYY-MM-DD HH.MM.SS
--- 3. TIMESTAMP (FSP) ---> 1970-01-01 00:00:00 TO 2038-01-19 03:14:07  
--- 4. TIME (FSP) ---> 00:00:00 TO 838:59:59  HH.MM.SS
--- 5. YEAR ---> 1901 TO 2155  -- FOUR DIGIT
+-- BIT        -> stores bit values (1 to 64 bits)
+-- TINYINT    -> very small integer
+-- SMALLINT   -> small integer
+-- MEDIUMINT  -> medium range integer
+-- INT / INTEGER -> normal integer
+-- BIGINT     -> very large integer
+-- FLOAT      -> decimal numbers (approximate)
+-- DOUBLE     -> high precision decimal
+-- DECIMAL / DEC() -> exact decimal values (financial data)
+-- BOOLEAN    -> true/false (0 or 1)
+
+
+
+-- STRING DATA TYPES
+
+-- CHAR(0-255)       -> fixed length string
+-- VARCHAR(0-65535)  -> variable length string
+-- BINARY            -> fixed binary data
+-- VARBINARY         -> variable binary data
+-- TINYTEXT          -> small text
+-- TEXT              -> normal text
+-- MEDIUMTEXT        -> larger text
+-- LONGTEXT          -> very large text
+-- TINYBLOB          -> small binary object
+-- BLOB              -> binary object
+-- MEDIUMBLOB        -> medium binary object
+-- LONGBLOB          -> very large binary object
+-- ENUM()            -> select one value from predefined list
+-- SET()             -> multiple values allowed (0 to 64)
+
+
+
+-- DATE AND TIME DATA TYPES
+
+-- DATE       -> YYYY-MM-DD (1000-01-01 to 9999-12-31)
+-- DATETIME   -> date + time (YYYY-MM-DD HH:MM:SS)
+-- TIMESTAMP  -> auto tracking time (1970 to 2038)
+-- TIME       -> HH:MM:SS
+-- YEAR       -> four digit year
 
 
 
 -- CONSTRAINTS AND PROPERTIES
--- 1. NOT NULL  ---> NO EMPTY VALUE
--- 2. DEFAULT   ---> DEFAULT VALUE
--- 3. CHECK    ---> CHECK THE VALUE with CONDITION
--- 4. PRIMARY KEY  ---> UNIQUE + NOT NULL
--- 5. UNIQUE  ----> NO DUPLICATE
--- 6. FOREIGN KEY ----> RELATIONSHIP BETWEEN TABLES
+
+-- NOT NULL     -> column cannot be empty
+-- DEFAULT      -> sets default value
+-- CHECK        -> validates condition
+-- PRIMARY KEY  -> unique + not null
+-- UNIQUE       -> duplicate values not allowed
+-- FOREIGN KEY  -> relation between tables
 
 
-CREATE DATABASE  STUDENTSSS;
 
-USE  STUDENTSSS;
+-- CREATE DATABASE
 
-CREATE TABLE student(  
-    id INT,
+CREATE DATABASE STUDENTSSS;
+
+USE STUDENTSSS;
+
+
+
+-- CREATE TABLE
+
+CREATE TABLE student(
+    id INT PRIMARY KEY,
     name VARCHAR(50),
-    AGE INT NOT null UNIQUE ,
+    AGE INT NOT NULL UNIQUE,
     CGPA INT CHECK (CGPA BETWEEN 0 AND 10)
-
 );
 
-DROP DATABASE STUDENTSSS;
-drop table student;
 
 
-INSERT INTO student(id,name,AGE ) VALUES(1,'GOVIND',23 );
-INSERT INTO student(id,name,AGE ,CGPA) VALUES(122,'GOVIND',23333 ,3);
+-- INSERT DATA
 
+-- Column order based insert
+
+INSERT INTO student(id,name,AGE) VALUES(1,'GOVIND',23);
+
+-- Insert including CGPA
+
+INSERT INTO student(id,name,AGE,CGPA) VALUES(122,'GOVIND',23333,3);
 
 INSERT INTO student(id,name,AGE) VALUES(2,'aman',222);
-
 INSERT INTO student(id,name,AGE) VALUES(3,'dilip',22);
 
--- INSERT INTO student VALUES(
+-- NOTE:
+-- If we use:
+-- INSERT INTO student VALUES(...)
+-- then values must be in exact column sequence.
 
--- );   ISME SEQUENCE ORDER MEIN VALUES PASS KRTE HAI 
 
+
+-- ALTER TABLE COMMANDS
+
+-- Add new column
 
 ALTER TABLE student
 ADD COLUMN city VARCHAR(50);
 
+-- Add column with DEFAULT value
+
 ALTER TABLE student
-ADD COLUMN COUNTERY VARCHAR(50) DEFAULT 'INDIA';
+ADD COLUMN COUNTRY VARCHAR(50) DEFAULT 'INDIA';
+
+-- Modify datatype
 
 ALTER TABLE student
 MODIFY city VARCHAR(100);
 
 
+
+-- SELECT DATA (DQL)
+
 SELECT * FROM student;
 
 
--- CHECK CMD
 
+-- CHECK TABLE STRUCTURE
 
-desc student;
-
-DELETE  FROM student WHERE id = 1 ;
-ROLLBACK ;
+DESC student;
 
 
 
+-- DELETE COMMAND
 
-UPDATE  student
+-- Deletes specific rows based on condition
+
+DELETE FROM student WHERE id = 1;
+
+-- ROLLBACK
+-- Works only if transaction not committed and storage engine supports it
+
+ROLLBACK;
+
+
+
+-- UPDATE COMMAND
+
+-- Modify existing record
+
+UPDATE student
 SET name = 'GOVIND JANGID'
 WHERE id = 1;
 
 
--- 
+
+-- DROP TABLE (remove table completely)
+
+-- DROP TABLE student;
+
+-- DROP DATABASE (remove database completely)
+
+-- DROP DATABASE STUDENTSSS;
 
 
--- DQL     DATA QUERY LANGUAGE
 
--- HW --- PRACTICE OF DML CMDS AND DQL
+-- HOMEWORK / PRACTICE
+
+-- Practice DML Commands:
+-- INSERT
+-- UPDATE
+-- DELETE
+
+-- Practice DQL Command:
+-- SELECT with conditions (WHERE)

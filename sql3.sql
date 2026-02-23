@@ -1,47 +1,57 @@
--- DDL --> DATA DEFINATION LANGUAGE
+-- DDL --> DATA DEFINITION LANGUAGE
+-- Used to define database structure.
+-- Commands: CREATE, ALTER, DROP, TRUNCATE, RENAME
 
 
---  SQL ENGINE --> SQL QUERY MEIN ERRORS FIND OUT KRTA HAI 
--- CREATE DATABASE COLLEGES;-- DDL FIRST COMMAND
+-- SQL ENGINE
+-- SQL engine checks syntax errors, executes query,
+-- and communicates with database storage system.
 
 
--- DATA TYPES
--- 1. INT
--- 2.CHAR -- > 255 MEMORY LETE HAI ---> FIXED SIZE AND MORE MEMORY USE -- USE IT IN PHONE_NO EXAMPLE
--- EG . NAME CHAR(30) --> NAME = GOVIND TOH REST MEMORY WASTE HOGI 
--- 3. VARCHAR -- > MEMORY EFFICIENT JITNI USKI VALUE DENGE ()
--- LIMITATION OF VARCHAR WITH LIMIT 
--- FIX OR USSSE KM HI VALUE LE SKTA HAI USSE JYDA NHI HOGI
 
--- 4. FLOAT
-CREATE DATABASE IF NOT EXISTS COLLEGES;-- ERROR NI AAYEGI BUT WARNING AA SKTI HAI 
+-- CREATE DATABASE
+-- IF NOT EXISTS prevents error if database already exists
+
+CREATE DATABASE IF NOT EXISTS COLLEGES;
 
 SHOW DATABASES;
 
-DROP DATABASE COLLEGES;
-
 USE COLLEGES;
 
--- DROP TABLE STUDENT;
-
--- DROP DATABASE COLLEGES;
 
 
---  CONSTRINTS --> SPECIAL FEATURES ABOUT THE COLUMN-- OPTIONALS HOTE HAI
--- 1. NOT NULL
--- 2. NULL
--- 3. PRIMARY KEY--> WOH DUPLICATE NI HOGI AUR NULL NI HOGI
--- 4. UNIQUE
--- 5. AUTO INCREMENT --> EK VALUE BDA DEGA 
+-- DATA TYPES
+
+-- INT      -> Integer numbers
+-- CHAR     -> Fixed length. Example CHAR(30)
+--             Even if value small, full memory reserved.
+--             Example: CHAR(30) with "GOVIND" still uses 30 size.
+--             Used in fixed-length fields like phone number.
+
+-- VARCHAR  -> Variable length. Memory efficient.
+--             Stores only actual data length.
+--             Example VARCHAR(30) can store upto 30 characters.
+
+-- FLOAT    -> Decimal numbers.
 
 
+
+-- CONSTRAINTS (Optional column rules)
+
+-- NOT NULL       -> Value cannot be empty
+-- NULL           -> Allows empty value
+-- PRIMARY KEY    -> Unique + Not Null
+-- UNIQUE         -> No duplicate allowed
+-- AUTO_INCREMENT -> Automatically increases value
+
+
+
+-- CREATE TABLE
 
 CREATE TABLE STUDENT (
-    RTUNO INT ,
-    NAME CHAR (30) NOT NULL,
+    RTUNO INT,
+    NAME CHAR(30) NOT NULL,
     AGE FLOAT
-
-    
 );
 
 SHOW TABLES;
@@ -49,80 +59,128 @@ SHOW TABLES;
 DESCRIBE STUDENT;
 DESC STUDENT;
 
---  ALTER COMMAND -- FOR CHANGING THE TABLE
--- RENAME COMMADS FOR RENAMING THE TABLE
 
-ALTER TABLE student RENAME COLUMN NAME TO STUDENTNAME ;
+
+-- ALTER COMMAND
+-- Used to modify existing table structure.
+
+-- Rename column NAME to STUDENTNAME
+
+ALTER TABLE STUDENT
+RENAME COLUMN NAME TO STUDENTNAME;
 
 DESCRIBE STUDENT;
-INSERT INTO STUDNET VALUES(1,'GOVIND',22);
 
-INSERT INTO STUDNET VALUES(2,'NAGORI',22);
 
---  QUESTION 
--- EMP ID NAME SELLARY 
+
+-- INSERT DATA
+
+
+INSERT INTO STUDENT VALUES(1,'GOVIND',22);
+INSERT INTO STUDENT VALUES(2,'NAGORI',22);
+
+
+
+-- QUESTION PART
+
+-- Create new database COMPANY
+
 CREATE DATABASE IF NOT EXISTS COMPANY;
 
 USE COMPANY;
 
+
+
+-- Create employee table
+
 CREATE TABLE EMPLOYEE(
-    EMP_ID INT ,
+    EMP_ID INT PRIMARY KEY,
     NAME VARCHAR(30),
     EMAIL VARCHAR(30),
     SALARY INT
 );
 
 DESCRIBE EMPLOYEE;
-INSERT INTO EMPLOYEE VALUES(1,'GOVIND','GOVIND@gmail',2220000);
-INSERT INTO EMPLOYEE VALUES(2,'NAGORI','NAGORI@gmail',220000); 
-
-INSERT INTO EMPLOYEE VALUES(3,'DILIP','DILIP@gmail',22300); 
-INSERT INTO EMPLOYEE VALUES(4,'ARYAN','ARYAN@gmail',22200); 
-
-INSERT INTO EMPLOYEE VALUES(5,'DEVANSH','DEVANSH@gmail',233200); 
-
-INSERT INTO EMPLOYEE VALUES(6,'AYUSH','AYUSH@gmail',123300);
-
-INSERT INTO EMPLOYEE VALUES(7,'AMAN','AMAN@gmail',2220000);
-
-INSERT INTO EMPLOYEE VALUES(8,'ANKIT','ANKIT@gmail',22200);
-
-INSERT INTO EMPLOYEE VALUES(9,'AKSHAT','AKSHAT@gmail',22200);
-
-INSERT INTO EMPLOYEE VALUES(10,'AMAY','AMAY@gmail',22200);
 
 
+
+-- Insert records
+
+INSERT INTO EMPLOYEE VALUES
+(1,'GOVIND','GOVIND@gmail',2220000),
+(2,'NAGORI','NAGORI@gmail',220000),
+(3,'DILIP','DILIP@gmail',22300),
+(4,'ARYAN','ARYAN@gmail',22200),
+(5,'DEVANSH','DEVANSH@gmail',233200),
+(6,'AYUSH','AYUSH@gmail',123300),
+(7,'AMAN','AMAN@gmail',2220000),
+(8,'ANKIT','ANKIT@gmail',22200),
+(9,'AKSHAT','AKSHAT@gmail',22200),
+(10,'AMAY','AMAY@gmail',22200);
+
+
+
+-- SELECT COMMAND
 
 SELECT * FROM EMPLOYEE;
 
-SELECT NAME FROM employee;
-
--- TRUNCATE CMDS IS USED FOR ERRASE ALL THE DATA OF TABLE OR DELETE ALL THE DATA
--- TRUNCATE EMPLOYEE;
-TRUNCATE TABLE employee;
+SELECT NAME FROM EMPLOYEE;
 
 
--- TRUNCATE AND DELETE CMD MEIN DIFFER KYO HAI ?
 
--- 
--- CREATE -- DB AND TABLE
--- DROP -- DB AND TABLE
--- RENAME -- DB AND TABLE
--- IF NOT EXISTS -- DB AND TABLE
--- SHOW -- DB AND TABLE
--- USE 
--- DESCRIBE -- TABLE
--- DESC -- TABLE
--- ALTER -- TABLE
--- TRUNCATE -- TABLE
--- ALTER TABLE ADD -- COLUMN
+-- TRUNCATE COMMAND
+
+-- TRUNCATE removes ALL data from table.
+-- Table structure remains.
+-- Faster than DELETE.
+-- Cannot rollback in most cases.
+
+TRUNCATE TABLE EMPLOYEE;
 
 
--- QUESTION
--- 1 . CREATE TABLE 
--- 2 . ALTER SE TABLE ADD COLUMN NAME ID MAIL
--- 3 . USING ALTER CITY
--- 4 . RENAME THE CITY TO ADDRESS
--- 5 . RENAME DATA TYPE OF TABLE USING ALTER COMMAND
--- 6 . DROP THE TABLE AND DATABASE
--- 7 . TRUNCATE THE TABLE
+
+-- DIFFERENCE BETWEEN TRUNCATE AND DELETE
+
+-- DELETE:
+-- Deletes specific rows using WHERE condition.
+-- Can be rolled back (if transaction enabled).
+-- Slower because row-by-row deletion.
+
+-- TRUNCATE:
+-- Removes all rows instantly.
+-- Cannot use WHERE condition.
+-- Resets auto increment.
+-- Faster operation.
+
+
+
+-- ALTER TABLE ADD COLUMN
+
+ALTER TABLE EMPLOYEE
+ADD COLUMN CITY VARCHAR(30);
+
+
+
+-- Rename column CITY to ADDRESS
+
+ALTER TABLE EMPLOYEE
+RENAME COLUMN CITY TO ADDRESS;
+
+
+
+-- Modify datatype using ALTER
+
+ALTER TABLE EMPLOYEE
+MODIFY ADDRESS VARCHAR(50);
+
+
+
+-- DROP TABLE (Deletes table permanently)
+
+DROP TABLE EMPLOYEE;
+
+
+
+-- DROP DATABASE (Deletes database permanently)
+
+DROP DATABASE COMPANY;
