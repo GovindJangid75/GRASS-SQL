@@ -25,6 +25,13 @@ SELECT * FROM IT_STD WHERE `CGPA`>=7.5;
 
 SELECT * FROM IT_STD_PASS;
 
+-- 2. STORE PROCEDURES
+-- Stored procedures are used to perform specific tasks.
+-- They are stored in the database and can be called from any part of the database.
+-- They are created using CREATE PROCEDURE statement.
+-- Create once and used multiple times.
+-- just like methods/functions in programming languages.
+
 
 
 
