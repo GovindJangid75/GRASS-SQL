@@ -32,6 +32,23 @@ SELECT * FROM IT_STD_PASS;
 -- Create once and used multiple times.
 -- just like methods/functions in programming languages.
 
+-- 1. IN PARAMETER 
+-- 2. OUT PARAMETER
+
+
+
+-- CREATE PROCEDURE
+-- SYNTAX
+
+
+CREATE PROCEDURE it_std_PRODCEDURE(IN CGPA_XYZ FLOAT)
+BEGIN 
+      SELECT * FROM it_std WHERE CGPA = CGPA_XYZ;
+      
+END $$ DELIMITER ;
+
+
+
 
 
 
