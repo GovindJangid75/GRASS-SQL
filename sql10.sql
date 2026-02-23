@@ -47,6 +47,8 @@ BEGIN
       
 END $$ DELIMITER ;
 
+call it_std_PRODCEDURE(8.7);
+
 
 
 
