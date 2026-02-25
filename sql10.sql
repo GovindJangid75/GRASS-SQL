@@ -14,12 +14,17 @@ USE COLLEGES;
 -- 1. Simplified Queries -- less typing and less data set
 -- 2. Security -- control access to data
 -- 3. Performance -- faster and easier to maintain
+-- 4. Flexibility -- can be changed over time
 
+-- Disadvantages of Views
+-- 1. Cannot be updated
+-- 2. Cannot be deleted
+-- 3. Cannot be inserted
 
 -- CREATE VIEW
 
 SELECT * FROM IT_STD;
-CREATE VIEW it_std_PASS AS
+CREATE VIEW if NOT EXISTS it_std_PASS AS
 SELECT * FROM IT_STD WHERE `CGPA`>=7.5;
 
 
@@ -31,12 +36,19 @@ SELECT * FROM IT_STD_PASS;
 -- They are created using CREATE PROCEDURE statement.
 -- Create once and used multiple times.
 -- just like methods/functions in programming languages.
+-- It is used to perform specific tasks.
+
+-- Advantages of Stored Procedures
+-- 1. Reusability -- can be used multiple times
 
 -- 1. IN PARAMETER 
 -- 2. OUT PARAMETER
 
 
 -- 1. IN PARAMETER 
+-- in this parameter we can pass value to procedure from outside
+-- it is called INPUT PARAMETER
+
 -- CREATE PROCEDURE
 -- SYNTAX
 CREATE PROCEDURE it_std_PRODCEDURE(IN CGPA_XYZ FLOAT)
@@ -46,6 +58,8 @@ END $$ DELIMITER ;
 
 call it_std_PRODCEDURE(8.7);
 
+
+-- 2. OUT PARAMETER
 
 
 
